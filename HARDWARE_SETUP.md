@@ -291,7 +291,7 @@ lsusb
 ls -l /dev/video*
 
 # カメラテストを実行
-cd ~/app/slurrykun
+cd ~/app/SlullyKun
 source .venv/bin/activate
 python3 test_camera.py
 deactivate

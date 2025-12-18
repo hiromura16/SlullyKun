@@ -6,10 +6,10 @@ After=network.target
 Type=oneshot
 User=pi
 # 注意: 以下のパスは実際のインストール場所に合わせて変更してください
-WorkingDirectory=/home/pi/app/slurrykun
-ExecStart=/home/pi/app/slurrykun/run_slurrykun.sh
-StandardOutput=append:/home/pi/app/slurrykun/slurrykun.log
-StandardError=append:/home/pi/app/slurrykun/slurrykun.log
+WorkingDirectory=/home/pi/app/SlullyKun
+ExecStart=/home/pi/app/SlullyKun/run_slurrykun.sh
+StandardOutput=append:/home/pi/app/SlullyKun/slurrykun.log
+StandardError=append:/home/pi/app/SlullyKun/slurrykun.log
 
 [Install]
 WantedBy=multi-user.target

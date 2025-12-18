@@ -83,17 +83,13 @@ cd ~/app
 
 ### 方法1: Gitを使う方法（推奨）
 
-GitHubのリポジトリURLを用意します（例: `https://github.com/your-org/slurrykun.git`）
-
-以下のコマンドでコードを取得します：
+GitHubのリポジトリURLを用意します：
 
 ```bash
 cd ~/app
-git clone https://github.com/your-org/slurrykun.git
-cd slurrykun
+git clone https://github.com/hiromura16/SlullyKun.git
+cd SlullyKun
 ```
-
-**注意**: `your-org/slurrykun` の部分は、実際のリポジトリURLに置き換えてください。
 
 ### 方法2: ZIPファイルをダウンロードする方法（Gitが使えない場合）
 
@@ -105,9 +101,9 @@ cd slurrykun
 
 ```bash
 cd ~/app
-unzip slurrykun-main.zip  # ファイル名は実際のファイル名に合わせてください
-mv slurrykun-main slurrykun  # ディレクトリ名を統一
-cd slurrykun
+unzip SlullyKun-main.zip  # ファイル名は実際のファイル名に合わせてください
+mv SlullyKun-main SlullyKun  # ディレクトリ名を統一
+cd SlullyKun
 ```
 
 ---
@@ -363,9 +359,9 @@ sudo nano /etc/systemd/system/slurrykun.service
 ```
 
 以下の行を実際のパスに変更してください：
-- `WorkingDirectory=/home/pi/app/slurrykun` → 実際のインストール場所
-- `ExecStart=/home/pi/app/slurrykun/run_slurrykun.sh` → 実際のスクリプトのパス
-- `StandardOutput=append:/home/pi/app/slurrykun/slurrykun.log` → 実際のログファイルのパス
+- `WorkingDirectory=/home/pi/app/SlullyKun` → 実際のインストール場所
+- `ExecStart=/home/pi/app/SlullyKun/run_slurrykun.sh` → 実際のスクリプトのパス
+- `StandardOutput=append:/home/pi/app/SlullyKun/slurrykun.log` → 実際のログファイルのパス
 - `User=pi` → 実際のユーザー名
 
 #### 3. systemdの再読み込み
@@ -457,13 +453,13 @@ crontab -e
 エディタが開いたら、ファイルの最後に以下の行を追加します：
 
 ```
-0 * * * * /home/pi/app/slurrykun/run_slurrykun.sh >> /home/pi/app/slurrykun/slurrykun.log 2>&1
+0 * * * * /home/pi/app/SlullyKun/run_slurrykun.sh >> /home/pi/app/SlullyKun/slurrykun.log 2>&1
 ```
 
 **この設定の意味**:
 - `0 * * * *`: 毎時0分に実行（毎時1回）
-- `/home/pi/app/slurrykun/run_slurrykun.sh`: 実行するスクリプトのパス
-- `>> /home/pi/app/slurrykun/slurrykun.log`: ログをファイルに追記
+- `/home/pi/app/SlullyKun/run_slurrykun.sh`: 実行するスクリプトのパス
+- `>> /home/pi/app/SlullyKun/slurrykun.log`: ログをファイルに追記
 - `2>&1`: エラーもログファイルに出力
 
 **実行頻度の変更例**:
@@ -471,7 +467,7 @@ crontab -e
 - 2時間ごと: `0 */2 * * *`
 - 毎日午前9時: `0 9 * * *`
 
-**注意**: パス（`/home/pi/app/slurrykun`）は、実際のインストール場所に合わせて変更してください。
+**注意**: パス（`/home/pi/app/SlullyKun`）は、実際のインストール場所に合わせて変更してください。
 
 ### 3. cronの保存と終了
 
@@ -490,7 +486,7 @@ crontab -l
 cronが正しく動作しているか確認するために、ログファイルを確認します：
 
 ```bash
-tail -f /home/pi/app/slurrykun/slurrykun.log
+tail -f /home/pi/app/SlullyKun/slurrykun.log
 ```
 
 次の実行時刻まで待って、ログが更新されるか確認してください。
@@ -630,13 +626,13 @@ pwd
 cronで実行する場合、ログファイルのディレクトリに書き込み権限があるか確認：
 
 ```bash
-ls -ld ~/app/slurrykun
+ls -ld ~/app/SlullyKun
 ```
 
 権限がない場合は修正：
 
 ```bash
-chmod 755 ~/app/slurrykun
+chmod 755 ~/app/SlullyKun
 ```
 
 ---

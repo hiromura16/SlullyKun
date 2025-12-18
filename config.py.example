@@ -20,7 +20,7 @@ TIME_SETTINGS = {
 
 # 画像保存設定
 IMAGE_SAVE_SETTINGS = {
-    'SAVE_IMAGE_DIR': os.path.expanduser("~/app/slurrykun/saveimages"),
+    'SAVE_IMAGE_DIR': os.path.expanduser("~/app/SlullyKun/saveimages"),
     'IMAGE_RETENTION_DAYS': 90,  # 画像保持日数（3ヶ月）
 }
 
@@ -56,4 +56,5 @@ SCP_SETTINGS = {
     'KEY_PATH': os.path.expanduser('~/.ssh/id_rsa'),  # 鍵認証の場合の秘密鍵のパス（パスワードより優先）
     'REMOTE_DIR': '/var/www/html/slurryimages',  # リモート側の保存先ディレクトリ
 }
+
 

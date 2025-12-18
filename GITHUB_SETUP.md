@@ -43,13 +43,11 @@ git commit -m "Initial commit: スラリーくんの初期バージョン"
 
 ### 5. リモートリポジトリを追加
 
-GitHubで作成したリポジトリのURLをコピーします（例: `https://github.com/your-username/slurrykun.git`）
+GitHubで作成したリポジトリのURLをコピーします：
 
 ```bash
-git remote add origin https://github.com/your-username/slurrykun.git
+git remote add origin https://github.com/hiromura16/SlullyKun.git
 ```
-
-**注意**: `your-username` の部分は、実際のGitHubユーザー名に置き換えてください。
 
 ### 6. コードをプッシュ
 
@@ -115,11 +113,12 @@ SSH鍵を設定するか、Personal Access Tokenを使用してください。
 
 ```bash
 git remote remove origin
-git remote add origin https://github.com/your-username/slurrykun.git
+git remote add origin https://github.com/hiromura16/SlullyKun.git
 ```
 
 ### ファイルが追加されない
 
 `.gitignore`に含まれているファイルは追加されません。
 これは正常な動作です（機密情報を誤ってアップロードしないため）。
+
 

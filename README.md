@@ -1,40 +1,66 @@
 # スラリーくん (SlullyKun)
 
+![Version](https://img.shields.io/badge/version-0.9.0--beta-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Python](https://img.shields.io/badge/python-3.7+-blue.svg)
+![Platform](https://img.shields.io/badge/platform-Raspberry%20Pi-red.svg)
+![Status](https://img.shields.io/badge/status-beta-orange.svg)
+![GitHub](https://img.shields.io/github/repo-size/hiromura16/SlullyKun?label=repo%20size)
+![GitHub last commit](https://img.shields.io/github/last-commit/hiromura16/SlullyKun?label=last%20update)
+
 スラリーの濃度を自動測定し、Grafanaで可視化・管理するためのラズパイアプリケーションです。
 
-## 概要
+**ベータ版（v0.9.0-beta）**: このバージョンは社内での使用を想定したベータリリースです。
+
+[![GitHub stars](https://img.shields.io/github/stars/hiromura16/SlullyKun?style=social)](https://github.com/hiromura16/SlullyKun)
+[![GitHub forks](https://img.shields.io/github/forks/hiromura16/SlullyKun?style=social)](https://github.com/hiromura16/SlullyKun)
+
+## 📖 概要
 
 スラリーくんは、ラズパイとUSBカメラを使用してスラリー（泥水）の濃度を自動測定するシステムです。測定したデータはInfluxDBに送信され、Grafanaで可視化できます。
 
-### 主な機能
+### 🎯 このプロジェクトについて
 
-- **自動測定**: リレー制御による自動的な注水・排水・測定サイクル
-- **画像解析**: OpenCVを使用した沈降した泥の面積比の自動計算
-- **データ送信**: InfluxDBへの自動データ送信
-- **画像管理**: 測定画像の自動保存とリモートサーバーへのアップロード
-- **自動クリーンアップ**: 古い画像ファイルの自動削除
+このプロジェクトは、別支社での運用を想定して開発されたスラリー濃度自動測定システムです。Gitや仮想環境の知識がない方でも、詳細なマニュアルに従ってデプロイできるよう設計されています。
 
-## 必要なハードウェア
+### ✨ 主な機能
 
-- Raspberry Pi（GPIO対応）
+- 🔄 **自動測定**: リレー制御による自動的な注水・排水・測定サイクル
+- 🖼️ **画像解析**: OpenCVを使用した沈降した泥の面積比の自動計算
+- 📊 **データ送信**: InfluxDBへの自動データ送信
+- 💾 **画像管理**: 測定画像の自動保存とリモートサーバーへのアップロード
+- 🧹 **自動クリーンアップ**: 古い画像ファイルの自動削除（90日保持）
+
+## 🔧 必要なハードウェア
+
+- Raspberry Pi（GPIO対応モデル推奨）
 - USBカメラ
-- リレーHAT（注水ソレノイド、排水ソレノイド、水中ポンプ用）
+- リレーHAT（Raspberry Piに取り付け）
+- ミニチュアリレー（制御盤内、3チャンネル以上）
+- ソレノイドバルブ（注水用・排水用、DC24V）
+- 水中ポンプ（AC100V）
 - メスシリンダー（測定容器）
+- 制御盤（DINレール付き）
+- スイッチング電源（DC24V出力）
+- 電磁接触器(MC)（水中ポンプ用）
 
-## 必要なソフトウェア
+詳細なハードウェア構成については、[HARDWARE_SETUP.md](HARDWARE_SETUP.md) を参照してください。
+
+## 💻 必要なソフトウェア
 
 - Raspberry Pi OS（最新版推奨）
 - Python 3.7以上
 - pip3
+- Git（GitHubからコードを取得する場合）
 
-## クイックスタート
+## 🚀 クイックスタート
 
 ### 1. リポジトリのクローン
 
 ```bash
 cd ~/app
-git clone https://github.com/your-org/slurrykun.git
-cd slurrykun
+git clone https://github.com/hiromura16/SlullyKun.git
+cd SlullyKun
 ```
 
 ### 2. 自動セットアップの実行
@@ -90,7 +116,7 @@ python3 check_health.py
 ./run_slurrykun.sh
 ```
 
-## 使用方法
+## 📝 使用方法
 
 ### 手動実行
 
@@ -104,7 +130,7 @@ python3 check_health.py
 
 詳細な設定方法については、[DEPLOYMENT.md](DEPLOYMENT.md)の「自動実行の設定」セクションを参照してください。
 
-## 設定項目の説明
+## ⚙️ 設定項目の説明
 
 詳細な設定項目については、`config.py.example` を参照してください。
 
@@ -124,7 +150,7 @@ python3 check_health.py
 - `BINARY_THRESHOLD`: 二値化の閾値（0-255）
 - `CROP_SCALE_FACTOR`: クロップ領域が実際に占める面積の比率
 
-## トラブルシューティング
+## 🔍 トラブルシューティング
 
 ### カメラが認識されない
 
@@ -153,10 +179,10 @@ ls -l /dev/video*
 - パスワードまたはSSH鍵が正しいか確認
 - リモートディレクトリの権限を確認
 
-## ファイル構成
+## 📁 ファイル構成
 
 ```
-slurrykun/
+SlullyKun/
 ├── main.py              # メインプログラム
 ├── config.py            # 設定ファイル（git管理外）
 ├── config.py.example    # 設定ファイルのテンプレート
@@ -167,7 +193,9 @@ slurrykun/
 ├── check_health.py     # ヘルスチェックスクリプト
 ├── slurrykun.service   # systemdサービスファイル
 ├── slurrykun.timer     # systemdタイマーファイル
+├── VERSION             # バージョン情報
 ├── README.md           # このファイル
+├── CHANGELOG.md        # 変更履歴
 ├── DEPLOYMENT.md       # 詳細なデプロイ手順書
 ├── HARDWARE_SETUP.md   # ハードウェアセットアップガイド
 ├── WIRING_DIAGRAM.md   # 配線図と回路図の説明
@@ -177,13 +205,14 @@ slurrykun/
 └── saveimages/         # 画像保存ディレクトリ（git管理外）
 ```
 
-## 詳細なドキュメント
+## 📚 詳細なドキュメント
 
-- **デプロイ手順**: [DEPLOYMENT.md](DEPLOYMENT.md) - 詳細なデプロイ手順書
-- **ハードウェアセットアップ**: [HARDWARE_SETUP.md](HARDWARE_SETUP.md) - ハードウェア接続ガイド
-- **配線図と回路図**: [WIRING_DIAGRAM.md](WIRING_DIAGRAM.md) - 回路図と配線図の説明
+- 📘 **デプロイ手順**: [DEPLOYMENT.md](DEPLOYMENT.md) - 詳細なデプロイ手順書（Gitや仮想環境の知識がない方でも理解できるよう説明）
+- 🔌 **ハードウェアセットアップ**: [HARDWARE_SETUP.md](HARDWARE_SETUP.md) - ハードウェア接続ガイド
+- 🔗 **配線図と回路図**: [WIRING_DIAGRAM.md](WIRING_DIAGRAM.md) - 回路図と配線図の説明
+- 🐙 **GitHubセットアップ**: [GITHUB_SETUP.md](GITHUB_SETUP.md) - GitHubリポジトリのセットアップ手順
 
-## ライセンス
+## 📄 ライセンス
 
 MIT License
 
@@ -191,7 +220,31 @@ Copyright (c) 2024 Hiroshi Murakami
 
 詳細は [LICENSE](LICENSE) ファイルを参照してください。
 
-## サポート
+## 📌 バージョン情報
 
-問題が発生した場合は、GitHubのIssuesで報告してください。
+現在のバージョン: **0.9.0-beta**
+
+変更履歴については、[CHANGELOG.md](CHANGELOG.md) を参照してください。
+
+## 💬 サポート
+
+問題が発生した場合は、GitHubの[Issues](https://github.com/hiromura16/SlullyKun/issues)で報告してください。
+
+## 🤝 貢献
+
+このプロジェクトは社内で使用するためのものです。改善提案やバグ報告は大歓迎です。
+
+## 👤 作者
+
+**Hiroshi Murakami**
+
+- GitHub: [@hiromura16](https://github.com/hiromura16)
+
+---
+
+## ⚠️ 注意事項
+
+- このプロジェクトはベータ版（v0.9.0-beta）です。本番環境で使用する前に、十分なテストを行ってください。
+- GPIOやハードウェアへのアクセスが必要なため、Raspberry Pi上で直接開発・実行する必要があります。
+- 機密情報（`config.py`）は`.gitignore`に含まれているため、GitHubにアップロードされません。デプロイ時は`config.py.example`をコピーして設定してください。
 
