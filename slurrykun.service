@@ -1,0 +1,16 @@
+[Unit]
+Description=スラリーくん - スラリー濃度自動測定システム
+After=network.target
+
+[Service]
+Type=oneshot
+User=pi
+# 注意: 以下のパスは実際のインストール場所に合わせて変更してください
+WorkingDirectory=/home/pi/app/slurrykun
+ExecStart=/home/pi/app/slurrykun/run_slurrykun.sh
+StandardOutput=append:/home/pi/app/slurrykun/slurrykun.log
+StandardError=append:/home/pi/app/slurrykun/slurrykun.log
+
+[Install]
+WantedBy=multi-user.target
+

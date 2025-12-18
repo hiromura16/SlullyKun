@@ -1,0 +1,59 @@
+"""
+スラリーくん設定ファイル
+このファイルを config.py にコピーして、実際の設定値を入力してください。
+"""
+import os
+
+# GPIOピン設定（リレーHATの接続ピン）
+GPIO_SETTINGS = {
+    'RELAY_PIN_INJECT': 4,  # 注水ソレノイド
+    'RELAY_PIN_DRAIN': 17,  # 排水ソレノイド
+    'RELAY_PIN_PUMP': 27,   # 水中ポンプ
+}
+
+# 時間設定（秒）
+TIME_SETTINGS = {
+    'DRAIN_TIME': 20,    # 排水処理時間
+    'INJECT_TIME': 15,   # 注水処理時間
+    'WAITING_TIME': 600,  # 待機時間（沈降を待つ時間）
+}
+
+# 画像保存設定
+IMAGE_SAVE_SETTINGS = {
+    'SAVE_IMAGE_DIR': os.path.expanduser("~/app/slurrykun/saveimages"),
+    'IMAGE_RETENTION_DAYS': 90,  # 画像保持日数（3ヶ月）
+}
+
+# 画像切り抜き領域の座標設定
+# できるだけ縦幅は狭くした方が良い。側面からの光漏れ軽減と、メモリ表記が黒いため、スラリーエリアとしてカウントされるため。
+CROP_SETTINGS = {
+    'X1': 550, # 左上のX座標
+    'Y1': 0, # 左上のY座標：増やすと、メスシリンダーの上側範囲が下がってくる。＝狭くなる
+    'X2': 720, # 右下のX座標
+    'Y2': 705, # 右下のY座標：減らすと、メスシリンダーの下側範囲が上がってくる。＝狭くなる
+}
+
+# 画像解析の閾値設定
+ANALYSIS_SETTINGS = {
+    'BINARY_THRESHOLD': 100,  # 二値化の閾値（0-255）
+    'CROP_SCALE_FACTOR': 0.3,  # クロップ領域が実際に占める面積の比率（30%）
+}
+
+# InfluxDB接続情報
+INFLUXDB_SETTINGS = {
+    'INFLUXDB_URL': "https://your-influxdb-server.com/api/v2/write?org=your_org&bucket=your_bucket&precision=s",
+    'INFLUXDB_TOKEN': "YOUR_INFLUXDB_TOKEN_HERE",  # InfluxDBのトークンを設定
+    'INFLUXDB_ORG': "your_org",  # InfluxDBの組織名
+    'INFLUXDB_BUCKET': "your_bucket",  # InfluxDBのバケット名
+}
+
+# SCP転送設定
+SCP_SETTINGS = {
+    'HOST': 'your-server.com',  # 画像をアップロードするサーバーのホスト名またはIPアドレス
+    'PORT': 22,  # SSHポート番号（通常は22）
+    'USERNAME': 'your_username',  # SCPで接続するユーザー名
+    'PASSWORD': 'your_password',  # パスワード認証の場合（鍵認証を使う場合はNoneに設定）
+    'KEY_PATH': os.path.expanduser('~/.ssh/id_rsa'),  # 鍵認証の場合の秘密鍵のパス（パスワードより優先）
+    'REMOTE_DIR': '/var/www/html/slurryimages',  # リモート側の保存先ディレクトリ
+}
+

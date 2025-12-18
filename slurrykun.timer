@@ -1,0 +1,14 @@
+[Unit]
+Description=スラリーくん タイマー - 定期的に測定を実行
+
+[Timer]
+# 毎時0分に実行
+OnCalendar=hourly
+# システム起動後5分待ってから開始
+OnBootSec=5min
+# タイマーが失敗した場合、1分後に再試行
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target
+
